@@ -53,7 +53,7 @@ websites = {
 def processcommand(c):
     command = c.lower().strip()
     
-    if command.startwith("open");
+    if command.startwith("open"):
     website = command.replace( "open", "",1).strip()
     
     if website in websites:
