@@ -56,30 +56,29 @@ def processcommand(c):
     if command.startwith("open");
     website = command.replace( "open", "",1).strip()
     
-        if website in websites:
+    if website in websites:
             speak(f"Opening {website}")
             webbrowser.open(websites[website])
-        else:
+    else:
             speak("Sorry, I don't know that website.")
 
-    
-    elif command.startswith("play"):
-        song = command.replace("play", "", 1).strip()
+    elif  
+    command.startswith("play")
+    song = command.replace("play", "", 1).strip()
 
-        if song in musiclibrary.music:
+  
+if song in musiclibrary.music:
             speak(f"Playing {song}")
             webbrowser.open(musiclibrary.music[song])
-        else:
+else:
             speak("Sorry, I couldn't find that song.")
-
-
-    elif "news" in command:
-        speak("News for today")
-        webbrowser.open("https://www.thehindu.com/")
-    else:
-        answer = ask_ai(c)
-        print(answer)
-        speak(answer)
+elif "news" in command:
+speak("News for today")
+webbrowser.open("https://www.thehindu.com/")
+else:
+answer = ask_ai(c)
+print(answer)
+speak(answer)
 
         
     
@@ -118,3 +117,5 @@ if __name__=="__main__":
 
         except Exception as e:
             print(type(e).__name__, e)
+
+
