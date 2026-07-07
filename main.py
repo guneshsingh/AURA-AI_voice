@@ -40,7 +40,7 @@ def ask_ai(question):
     )
 
     return response.choices[0].message.content
-#if you want to add more websites , add here inside the website (in dict. format )
+
 websites = {
     "google": "https://google.com",
     "facebook": "https://facebook.com",
@@ -48,28 +48,31 @@ websites = {
     "youtube": "https://youtube.com",
     "whatsapp": "https://web.whatsapp.com",
 }
-    
 
 def processcommand(c):
     command = c.lower().strip()
     
-    if command.startswith("open"):
-        website = command.replace( "open", "",1).strip()
-    
-        if website in websites:
-                speak(f"Opening {website}")
-                webbrowser.open(websites[website])
-        else:
+    if "open" in command.lower():
+        matched=False
+        for site in websites:
+            if site in command:
+                speak(f"Opening {site}")
+                webbrowser.open(websites[site])
+                matched=True
+                break
+        if not matched:
                 speak("Sorry, I don't know that website.")
 
-    elif command.startswith("play"):
-        song = command.replace("play", "", 1).strip()
-        if song in musiclibrary.music:
-            speak(f"Playing {song}")
-            webbrowser.open(musiclibrary.music[song])
-        else:
+    elif "play" in command.lower():
+        found=False
+        for song in musiclibrary.music:
+            if song in command:
+                speak(f"Playing {song}")
+                webbrowser.open(musiclibrary.music[song])
+                found=True
+        if not found:
             speak("Sorry, I couldn't find that song.")
-    elif "news" in command:
+    elif "news" in c.lower():
         speak("News for today")
         webbrowser.open("https://www.thehindu.com/")
     else:
