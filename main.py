@@ -78,39 +78,64 @@ def processcommand(c):
         speak(answer)
 
         
-    
 
 if __name__=="__main__":
     speak("Initialising AURA.............")
+    active=False
+    idle_timeout=60
+    last_time=None
     while True:
        
         try:
-            with sr.Microphone() as source:
-                print("Listening..........")
-                recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                audio = recognizer.listen(source,timeout=5,phrase_time_limit=5)
-            print("Recognising")
-            word=recognizer.recognize_google(audio)
-            if "aura" in word.lower():
-                print("AURA active..........")
-                speak("YA")
-                time.sleep(1)
+            if not active:
                 with sr.Microphone() as source:
-                    print("Listening for command")
+                    print("Listening..........")
                     recognizer.adjust_for_ambient_noise(source, duration=0.5)
-                    audio = recognizer.listen(source)
-                command=recognizer.recognize_google(audio)
-                processcommand(command)
+                    audio = recognizer.listen(source,timeout=5,phrase_time_limit=5)
+                print("Recognising")
+                word=recognizer.recognize_google(audio)
+                print(word)
+
+                if "exit" in word.lower():
+                    speak("Exiting AURA!!!! Thank You .............. See you soon!!")
+                    break
+
+                if "hello" in word.lower():
+                    print("AURA active..........")
+                    speak("hey!!good to see you.")
+                    speak("AURA active..........")
+                    active=True
+                    time.sleep(1)
+            else:
+                try:
+                    with sr.Microphone() as source:
+                        print("Listening for command")
+                        recognizer.adjust_for_ambient_noise(source, duration=0.5)
+                        audio = recognizer.listen(source)
+                    print("Recognising")
+                    command=recognizer.recognize_google(audio)
+                    print(command)
+                    if "exit" in command.lower():
+                        
+                        processcommand(command)
+                        speak("Exiting Aura!!")
+                        break
+                    processcommand(command)
+                except sr.WaitTimeoutError:
+                    print("No speech detected")
+                    if time.time()-last_time>idle_timeout:
+                        print("TimeOut!!!!!!!!")
+                        speak("Going back to sleep.say hello to wake me up")
 
 
         except sr.WaitTimeoutError:
-            print("No speech detected.")
+            speak("No speech detected.")
 
         except sr.UnknownValueError:
-            print("Couldn't understand.")
+            speak("Couldn't understand.")
 
         except sr.RequestError:
-            print("Internet connection error.")
+            speak("Internet connection error.")
 
         except Exception as e:
             print(type(e).__name__, e)
