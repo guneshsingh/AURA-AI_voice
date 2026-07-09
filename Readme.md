@@ -101,7 +101,7 @@ python main.py
 ```
 
 1. AURA starts listening passively for the wake word.
-2. Say **"Hello"** or **"Aura"** to activate.
+2. Say **"Hello"** to activate.
 3. Speak your command — open a website, play a song, ask for news, or just chat.
 4. AURA stays in an active listening loop until the idle timeout kicks in, so you can issue multiple commands without repeating the wake word.
 
