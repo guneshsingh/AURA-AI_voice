@@ -78,21 +78,31 @@ pip install -r requirements.txt
 
 ### Configure API keys
 
-Copy the example env file and fill in your own keys:
+Copy the example environment file and rename it to `.env`.
 
+**macOS/Linux**
 ```bash
-cp .env.example .env    # macOS/Linux
-copy .env.example .env  # Windows
+cp .env.example .env
 ```
 
-Then open `.env` and add your keys:
+**Windows PowerShell**
+```powershell
+Copy-Item .env.example .env
+```
+
+**Windows Command Prompt (CMD)**
+```cmd
+copy .env.example .env
+```
+
+Then open `.env` and replace the placeholder values with your own API keys:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 NEWSAPI_KEY=your_newsapi_key_here
 ```
 
-`.env` is listed in `.gitignore` and should **never** be committed — only `.env.example` (with placeholder values) is tracked in the repo. Load the real keys in `main.py` with `python-dotenv` (`load_dotenv()`) rather than hardcoding them.
+> **Note:** The `.env` file is listed in `.gitignore` and should **never** be committed to Git. Only `.env.example` (containing placeholder values) is tracked in the repository. AURA loads the real keys at runtime using `python-dotenv` (`load_dotenv()`), keeping your credentials secure.
 
 ## ▶️ Usage
 
