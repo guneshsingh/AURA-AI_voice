@@ -1,4 +1,4 @@
-v<div align="center">
+<div align="center">
 
 # 🤖 AURA — AI Voice Assistant
 
@@ -46,10 +46,13 @@ Say **"Hello"** or **"Aura"** to activate it, then talk naturally — no rigid c
 
 ```
 AURA-AI_voice/
-├── main.py            # Entry point — wake word, listening loop, command routing
+├── main.py             # Entry point — wake word, listening loop, command routing
 ├── musiclibrary.py     # Song name → URL mapping used by music commands
 ├── test.py             # Scratch/testing script
+├── requirements.txt    # Python dependencies
+├── .env.example        # Template for required API keys
 ├── .gitignore
+├── LICENSE             # MIT License
 └── README.md
 ```
 
@@ -68,21 +71,28 @@ venv\Scripts\activate      # Windows
 source venv/bin/activate   # macOS/Linux
 
 # 3. Install dependencies
-pip install speechrecognition pyttsx3 pyaudio openai requests python-dotenv
+pip install -r requirements.txt
 ```
 
-> 💡 On Windows, `pyaudio` sometimes needs a prebuilt wheel — if `pip install pyaudio` fails, install it via `pipwin install pyaudio` instead.
+> 💡 On Windows, `pyaudio` sometimes needs a prebuilt wheel — if it fails to install, run `pipwin install pyaudio` instead.
 
 ### Configure API keys
 
-Create a `.env` file in the project root (this file is git-ignored and should **never** be committed):
+Copy the example env file and fill in your own keys:
+
+```bash
+cp .env.example .env    # macOS/Linux
+copy .env.example .env  # Windows
+```
+
+Then open `.env` and add your keys:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 NEWSAPI_KEY=your_newsapi_key_here
 ```
 
-Load them in `main.py` with `python-dotenv` (`load_dotenv()`) rather than hardcoding keys directly — this keeps credentials out of source control and out of chat history.
+`.env` is listed in `.gitignore` and should **never** be committed — only `.env.example` (with placeholder values) is tracked in the repo. Load the real keys in `main.py` with `python-dotenv` (`load_dotenv()`) rather than hardcoding them.
 
 ## ▶️ Usage
 
@@ -103,7 +113,6 @@ python main.py
 
 ## 🗺️ Roadmap
 
-- [ ] Add a `requirements.txt` for one-line dependency installs
 - [ ] Cross-platform TTS support (currently SAPI5/Windows-oriented)
 - [ ] Custom wake-word training instead of keyword matching
 - [ ] Plugin-style command architecture for easier extension
@@ -115,7 +124,7 @@ Contributions, issues, and feature requests are welcome. Feel free to check the 
 
 ## 📄 License
 
-This project doesn't yet declare a license. Consider adding an [MIT License](https://choosealicense.com/licenses/mit/) file if you want others to freely use and contribute to AURA.
+This project is licensed under the [MIT License](LICENSE) — free to use, modify, and distribute.
 
 ## 👤 Author
 
